@@ -1,0 +1,7 @@
+*.o
+*.so
+.clangd
+*.out
+*.app
+*.exe
+*.test
