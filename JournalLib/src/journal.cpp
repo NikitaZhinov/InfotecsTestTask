@@ -2,32 +2,30 @@
 
 #include <stdexcept>
 
-using namespace journal;
-
-bool Journal::checkMessageLevel(const Message& message) const {
+bool journal::Journal::checkMessageLevel(const Message& message) const {
     if (message.getLevel() < base_level_) {
         return false;
     }
     return true;
 }
 
-Journal::Journal(const std::string& file_name, Level base_level) :
+journal::Journal::Journal(const std::string& file_name, Level base_level) :
     file_name_(file_name),
     base_level_(base_level) {
     open();
 }
 
-Journal::Journal(std::string&& file_name, Level base_level) :
+journal::Journal::Journal(std::string&& file_name, Level base_level) :
     file_name_(std::move(file_name)),
     base_level_(base_level) {
     open();
 }
 
-Journal::~Journal() {
+journal::Journal::~Journal() {
     close();
 }
 
-void Journal::open() {
+void journal::Journal::open() {
     if (is_open_) {
         journal_file_.close();
     }
@@ -41,41 +39,41 @@ void Journal::open() {
     }
 }
 
-void Journal::open(const std::string& file_name) {
+void journal::Journal::open(const std::string& file_name) {
     file_name_ = file_name;
     open();
 }
 
-void Journal::open(std::string&& file_name) {
+void journal::Journal::open(std::string&& file_name) {
     file_name_ = std::move(file_name);
     open();
 }
 
-void Journal::close() {
+void journal::Journal::close() {
     journal_file_.close();
     is_open_ = false;
 }
 
-bool Journal::isOpen() const {
+bool journal::Journal::isOpen() const {
     return is_open_;
 }
 
-void Journal::setBaseLevel(Level new_base_level) {
+void journal::Journal::setBaseLevel(Level new_base_level) {
     base_level_ = new_base_level;
 }
 
-[[nodiscard]] std::string Journal::getFileName() const {
+[[nodiscard]] std::string journal::Journal::getFileName() const {
     return file_name_;
 }
 
-[[nodiscard]] Level Journal::getBaseLevel() const {
+[[nodiscard]] journal::Level journal::Journal::getBaseLevel() const {
     return base_level_;
 }
 
-bool Journal::addMessage(const Message& new_message) {
+bool journal::Journal::addMessage(const Message& new_message) {
     return addNewMessage(new_message);
 }
 
-bool Journal::addMessage(Message&& new_message) {
+bool journal::Journal::addMessage(Message&& new_message) {
     return addNewMessage(std::move(new_message));
 }

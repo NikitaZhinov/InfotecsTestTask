@@ -1,21 +1,42 @@
 #include "journal/level.hpp"
 
-using namespace journal;
+#include <stdexcept>
 
-std::ostream& journal::operator<<(std::ostream& os, Level level) {
+std::string journal::formatLevel(Level level) {
     switch (level) {
         case UNIMPORTANT:
-            return os << "UNIMPORTANT";
+            return "UNIMPORTANT";
 
         case IMPORTANT:
-            return os << "IMPORTANT";
+            return "IMPORTANT";
 
         case VERY_IMPORTANT:
-            return os << "VERY_IMPORTANT";
+            return "VERY_IMPORTANT";
 
         case BASIC_NECESSITIES:
-            return os << "BASIC_NECESSITIES";
+            return "BASIC_NECESSITIES";
+
+        default:
+            break;
     }
 
-    return os;
+    throw std::runtime_error("undefined level");
+}
+
+journal::Level journal::formatLevel(const std::string& level) {
+    if (level == "UNIMPORTANT") {
+        return UNIMPORTANT;
+    } else if (level == "IMPORTANT") {
+        return IMPORTANT;
+    } else if (level == "VERY_IMPORTANT") {
+        return VERY_IMPORTANT;
+    } else if (level == "BASIC_NECESSITIES") {
+        return BASIC_NECESSITIES;
+    }
+
+    throw std::runtime_error("undefined level string");
+}
+
+std::ostream& journal::operator<<(std::ostream& os, Level level) {
+    return os << formatLevel(level);
 }

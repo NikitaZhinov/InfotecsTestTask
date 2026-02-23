@@ -18,7 +18,7 @@ src/%.o : src/%.cpp
 	$(CC) -fpic -c $< -o $@
 
 test : $(TARGET_TEST)
-	LD_LIBRARY_PATH=. ./$(TARGET_TEST)
+	@LD_LIBRARY_PATH=. ./$(TARGET_TEST)
 
 $(TARGET_TEST) : $(OBJ_TEST) $(TARGET)
 	$(CC) $^ -o $@ -lgtest

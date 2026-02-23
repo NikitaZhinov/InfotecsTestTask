@@ -22,7 +22,7 @@ namespace journal {
         template <class MessageT> inline bool addNewMessage(MessageT&& new_message) {
             bool is_can_add = checkMessageLevel(new_message);
             if (is_can_add) {
-                journal_file_ << std::forward<MessageT>(new_message);
+                journal_file_ << std::forward<MessageT>(new_message) << '\n' << std::flush;
             }
             return is_can_add;
         }

@@ -13,5 +13,9 @@ namespace journal {
         BASIC_NECESSITIES
     };
 
+    std::string formatLevel(Level level);
+
+    Level formatLevel(const std::string& level);
+
     std::ostream& operator<<(std::ostream& os, Level level);
 }  // namespace journal
