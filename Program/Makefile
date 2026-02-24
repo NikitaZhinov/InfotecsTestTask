@@ -19,7 +19,7 @@ docs :
 	doxygen
 
 clean :
-	rm -rf *.test bin
+	rm -rf *.test bin docs
 
 rebuild : clean all
 

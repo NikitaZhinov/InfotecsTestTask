@@ -27,7 +27,7 @@ bin/test-%.o : test/%.cpp
 	$(CC) -c $< -o $@
 
 clean :
-	rm -rf *.test bin
+	rm -rf *.test bin docs
 
 check :
 	@if [ ! -d "bin" ]; then mkdir bin; fi
