@@ -1,5 +1,6 @@
 #include "journal/level.hpp"
 
+#include <cctype>
 #include <stdexcept>
 
 std::string journal::formatLevel(Level level) {
@@ -23,7 +24,11 @@ std::string journal::formatLevel(Level level) {
     throw std::runtime_error("undefined level");
 }
 
-journal::Level journal::formatLevel(const std::string& level) {
+journal::Level journal::formatLevel(std::string level) {
+    for (char& c : level) {
+        c = std::toupper(c);
+    }
+
     if (level == "UNIMPORTANT") {
         return UNIMPORTANT;
     } else if (level == "IMPORTANT") {

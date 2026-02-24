@@ -1,0 +1,90 @@
+\doxysection{Thread\+Safe\+Journal Class Reference}
+\hypertarget{classThreadSafeJournal}{}\label{classThreadSafeJournal}\index{ThreadSafeJournal@{ThreadSafeJournal}}
+
+
+Provides streaming security of the transmitted data in a separate thread.  
+
+
+
+
+{\ttfamily \#include $<$thread-\/safe-\/journal.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classThreadSafeJournal_af354983ec4814f26d6cbc9dddaf8fce3}{Thread\+Safe\+Journal}} (const std\+::string \&file\+\_\+name, journal\+::\+Level base\+\_\+level)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classThreadSafeJournal}{Thread\+Safe\+Journal} object. \end{DoxyCompactList}\item 
+\Hypertarget{classThreadSafeJournal_a6dacf5a4e48f6ecc130c2a837f043bbc}\label{classThreadSafeJournal_a6dacf5a4e48f6ecc130c2a837f043bbc} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Thread\+Safe\+Journal} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{classThreadSafeJournal}{Thread\+Safe\+Journal} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classThreadSafeJournal_a2e871a6bf7013ff6c507e5448f82f9d0}{push}} (const journal\+::\+Message \&new\+\_\+message)
+\begin{DoxyCompactList}\small\item\em Add new message in the queue. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classThreadSafeJournal_a13c8bd4788ed961af9c80ed766caae0c}{is\+Active}} ()
+\begin{DoxyCompactList}\small\item\em Check whether the journal is open. \end{DoxyCompactList}\item 
+\Hypertarget{classThreadSafeJournal_a216f8e6f0494f54e9dd827c1257da3c9}\label{classThreadSafeJournal_a216f8e6f0494f54e9dd827c1257da3c9} 
+void {\bfseries print} ()
+\begin{DoxyCompactList}\small\item\em Print message in the journal file. \end{DoxyCompactList}\item 
+\Hypertarget{classThreadSafeJournal_a4c7c4812c21a863e1e78b475ccc399d5}\label{classThreadSafeJournal_a4c7c4812c21a863e1e78b475ccc399d5} 
+void {\bfseries close} ()
+\begin{DoxyCompactList}\small\item\em Close the journal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides streaming security of the transmitted data in a separate thread. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classThreadSafeJournal_af354983ec4814f26d6cbc9dddaf8fce3}\index{ThreadSafeJournal@{ThreadSafeJournal}!ThreadSafeJournal@{ThreadSafeJournal}}
+\index{ThreadSafeJournal@{ThreadSafeJournal}!ThreadSafeJournal@{ThreadSafeJournal}}
+\doxysubsubsection{\texorpdfstring{ThreadSafeJournal()}{ThreadSafeJournal()}}
+{\footnotesize\ttfamily \label{classThreadSafeJournal_af354983ec4814f26d6cbc9dddaf8fce3} 
+Thread\+Safe\+Journal\+::\+Thread\+Safe\+Journal (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+name}{, }\item[{journal\+::\+Level}]{base\+\_\+level}{}\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{classThreadSafeJournal}{Thread\+Safe\+Journal} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+name} & name of the journal file \\
+\hline
+{\em base\+\_\+level} & minimum message importance level (messages below this level will not be added to the journal) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classThreadSafeJournal_a13c8bd4788ed961af9c80ed766caae0c}\index{ThreadSafeJournal@{ThreadSafeJournal}!isActive@{isActive}}
+\index{isActive@{isActive}!ThreadSafeJournal@{ThreadSafeJournal}}
+\doxysubsubsection{\texorpdfstring{isActive()}{isActive()}}
+{\footnotesize\ttfamily \label{classThreadSafeJournal_a13c8bd4788ed961af9c80ed766caae0c} 
+bool Thread\+Safe\+Journal\+::is\+Active (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Check whether the journal is open. 
+
+\begin{DoxyReturn}{Returns}
+true if journal is open 
+
+false if journal is not open 
+\end{DoxyReturn}
+\Hypertarget{classThreadSafeJournal_a2e871a6bf7013ff6c507e5448f82f9d0}\index{ThreadSafeJournal@{ThreadSafeJournal}!push@{push}}
+\index{push@{push}!ThreadSafeJournal@{ThreadSafeJournal}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily \label{classThreadSafeJournal_a2e871a6bf7013ff6c507e5448f82f9d0} 
+void Thread\+Safe\+Journal\+::push (\begin{DoxyParamCaption}\item[{const journal\+::\+Message \&}]{new\+\_\+message}{}\end{DoxyParamCaption})}
+
+
+
+Add new message in the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+message} & a new message \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inc/thread-\/safe-\/journal.\+hpp\end{DoxyCompactItemize}

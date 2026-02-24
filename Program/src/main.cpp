@@ -4,7 +4,8 @@
 
 #include <journal/journal.hpp>
 
-#include "thread-safe-logger.hpp"
+#include "commands.hpp"
+#include "thread-safe-journal.hpp"
 
 static std::string getFileName(int argc, const char* argv[]) {
     std::string file_name;
@@ -24,34 +25,47 @@ static std::string getFileName(int argc, const char* argv[]) {
 }
 
 static journal::Level getBaseLevel(int argc, const char* argv[]) {
+    journal::Level level = journal::UNIMPORTANT;
+
     switch (argc) {
         case 1:
         case 2:
-            return journal::UNIMPORTANT;
+            break;
 
         default:
+            level = journal::formatLevel(argv[2]);
             break;
     }
 
-    return journal::formatLevel(argv[2]);
+    return level;
 }
 
-static void writeMessage(ThreadSafeLogger& logger) {
+static void writeMessage(ThreadSafeJournal& logger) {
     while (logger.isActive()) {
         logger.print();
     }
 }
 
-static journal::Level getLevelMessage() {
-    std::cout << "Enter the importance level: ";
+static journal::Level getMessageLevel() {
+    journal::Level level = journal::UNIMPORTANT;
 
-    std::string level_str;
-    std::cin >> level_str;
+    while (true) {
+        std::string level_str;
+        std::cout << "Enter the importance level: ";
+        std::cin >> level_str;
 
-    return journal::formatLevel(level_str);
+        try {
+            level = journal::formatLevel(level_str);
+            break;
+        } catch (const std::runtime_error&) {
+            std::cout << "Undefined level!\n";
+        }
+    }
+
+    return level;
 }
 
-static std::string getTextMessage() {
+static std::string getMessageText() {
     std::cout << "Enter the text: ";
 
     std::string text;
@@ -60,9 +74,9 @@ static std::string getTextMessage() {
     return text;
 }
 
-static void getMessage(ThreadSafeLogger& logger) {
-    auto level = getLevelMessage();
-    auto text = getTextMessage();
+static void getMessage(ThreadSafeJournal& logger) {
+    auto level = getMessageLevel();
+    auto text = getMessageText();
     logger.push(journal::Message { text, level });
 }
 
@@ -70,37 +84,16 @@ int main(int argc, const char* argv[]) {
     auto file_name = getFileName(argc, argv);
     auto base_level = getBaseLevel(argc, argv);
 
-    ThreadSafeLogger logger(file_name, base_level);
+    ThreadSafeJournal logger(file_name, base_level);
 
     std::thread logger_thread(writeMessage, std::ref(logger));
 
-    bool run_flag = true;
-    while (run_flag) {
-        std::cout << "Chose the command:\n";
-        std::cout << "[1] Write message\n";
-        std::cout << "[0] Exit\n";
+    ApplicationCommands app;
+    app.addCommand(Command { "Exit", [&](ApplicationCommands& app) { app.stop(); } });
+    app.addCommand(Command { "Write message",
+                             [&](ApplicationCommands& app) { getMessage(logger); } });
 
-        int n = -1;
-        std::cin >> n;
-
-        std::cout << '\n';
-
-        switch (n) {
-            case 0:
-                run_flag = false;
-                break;
-
-            case 1:
-                getMessage(logger);
-                break;
-
-            default:
-                std::cout << "Undefined command!\n";
-                break;
-        }
-
-        std::cout << '\n';
-    }
+    app.start();
 
     logger.close();
 

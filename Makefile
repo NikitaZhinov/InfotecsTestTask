@@ -13,4 +13,13 @@ clean :
 test :
 	$(DOMAKE)
 
+rebuild :
+	$(DOMAKE)
+
+run :
+	$(MAKE) -C Program $@
+
+docs :
+	$(DOMAKE)
+
 .PHONY: all clean test $(SUBDIRS)

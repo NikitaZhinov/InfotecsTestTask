@@ -1,22 +1,30 @@
 CC =g++ -Wall -std=c++17 -I./inc -I../JournalLib/inc
 
-TARGET =program.out
+TARGET =bin/program.out
 
 SRC = $(wildcard src/*.cpp)
-OBJ = $(patsubst src/%.cpp, src/%.o, $(SRC))
+OBJ = $(patsubst src/%.cpp, bin/%.o, $(SRC))
 
-all : $(TARGET)
+all : check $(TARGET)
 
 $(TARGET) : $(OBJ)
-	$(CC) $^ -o $@ -ljournal -L../JournalLib
+	$(CC) $^ -o $@ -ljournal -L../JournalLib/bin
 
-src/%.o : src/%.cpp
+bin/%.o : src/%.cpp
 	$(CC) -c $< -o $@
 
-test :
+test : all
+
+docs :
+	doxygen
 
 clean :
-	rm -rf src/*.o test/*.o *.out *.test
+	rm -rf *.test bin
 
-run :
-	@LD_LIBRARY_PATH=../JournalLib ./$(TARGET)
+rebuild : clean all
+
+run : $(TARGET)
+	@LD_LIBRARY_PATH=../JournalLib/bin ./$(TARGET)
+
+check :
+	@if [ ! -d "bin" ]; then mkdir bin; fi

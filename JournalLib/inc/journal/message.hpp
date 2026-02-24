@@ -19,37 +19,37 @@ namespace journal {
         /**
          * @brief Construct a new Message object.
          *
-         * @param text - message text
-         * @param level - the importance level of the message
+         * @param text message text
+         * @param level the importance level of the message
          */
         Message(const std::string& text, Level level = UNIMPORTANT);
 
         /**
          * @brief Construct a new Message object.
          *
-         * @param text - message text
-         * @param level - the importance level of the message
+         * @param text message text
+         * @param level the importance level of the message
          */
         Message(std::string&& text, Level level = UNIMPORTANT);
 
         /**
          * @brief Set a new message text.
          *
-         * @param new_text - a new message text
+         * @param new_text a new message text
          */
         void setText(const std::string& new_text);
 
         /**
          * @brief Set a new message text.
          *
-         * @param new_text - a new message text
+         * @param new_text a new message text
          */
         void setText(std::string&& new_text) noexcept;
 
         /**
          * @brief Set the message's importance level.
          *
-         * @param new_level - a importance level
+         * @param new_level a importance level
          */
         void setLevel(Level new_level);
 

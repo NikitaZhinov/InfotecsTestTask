@@ -22,7 +22,8 @@ namespace journal {
         template <class MessageT> inline bool addNewMessage(MessageT&& new_message) {
             bool is_can_add = checkMessageLevel(new_message);
             if (is_can_add) {
-                journal_file_ << std::forward<MessageT>(new_message) << '\n' << std::flush;
+                journal_file_ << std::forward<MessageT>(new_message) << '\n'
+                              << std::flush;
             }
             return is_can_add;
         }
@@ -31,8 +32,8 @@ namespace journal {
         /**
          * @brief Construct a new Journal object.
          *
-         * @param file_name - name of the journal file
-         * @param base_level - minimum message importance level (messages below this level
+         * @param file_name name of the journal file
+         * @param base_level minimum message importance level (messages below this level
          * will not be added to the journal)
          */
         Journal(const std::string& file_name, Level base_level = UNIMPORTANT);
@@ -40,8 +41,8 @@ namespace journal {
         /**
          * @brief Construct a new Journal object.
          *
-         * @param file_name - name of the journal file
-         * @param base_level - minimum message importance level (messages below this level
+         * @param file_name name of the journal file
+         * @param base_level minimum message importance level (messages below this level
          * will not be added to the journal)
          */
         Journal(std::string&& file_name, Level base_level = UNIMPORTANT);
@@ -53,20 +54,24 @@ namespace journal {
 
         /**
          * @brief Open the last specified journal file.
+         * 
+         * @throw std::runtime_error if clould not open the file
          */
         void open();
 
         /**
          * @brief Open the journal file.
          *
-         * @param file_name - a journal file name.
+         * @throw std::runtime_error if clould not open the file
+         * @param file_name a journal file name.
          */
         void open(const std::string& file_name);
 
         /**
          * @brief Open the journal file.
          *
-         * @param file_name - a journal file name.
+         * @throw std::runtime_error if clould not open the file
+         * @param file_name a journal file name.
          */
         void open(std::string&& file_name);
 
@@ -78,8 +83,8 @@ namespace journal {
         /**
          * @brief Сheck if the journal is open.
          *
-         * @return true - if journal is open
-         * @return false - if journal is not open
+         * @return true if journal is open
+         * @return false if journal is not open
          */
         bool isOpen() const;
 
@@ -87,7 +92,7 @@ namespace journal {
          * @brief Set a minimum level of message importance. Messages below this level
          * will not be added to the journal.
          *
-         * @param new_base_level - minimum message importance level
+         * @param new_base_level minimum message importance level
          */
         void setBaseLevel(Level new_base_level);
 
@@ -108,18 +113,18 @@ namespace journal {
         /**
          * @brief Add a new message.
          *
-         * @param new_message - a new message
-         * @return true - if the message has been added
-         * @return false - if the message has been added
+         * @param new_message a new message
+         * @return true if the message has been added
+         * @return false if the message has been added
          */
         bool addMessage(const Message& new_message);
 
         /**
          * @brief Add a new message.
          *
-         * @param new_message - a new message
-         * @return true - if the message has been added
-         * @return false - if the message has been added
+         * @param new_message a new message
+         * @return true if the message has been added
+         * @return false if the message has been added
          */
         bool addMessage(Message&& new_message);
     };
