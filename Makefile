@@ -16,7 +16,7 @@ test :
 rebuild :
 	$(DOMAKE)
 
-run :
+run : all
 	$(MAKE) -C Program $@
 
 docs :
